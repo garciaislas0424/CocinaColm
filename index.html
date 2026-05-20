@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La Colmena del Sabor</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#ffb347,#ffcc70,#fff3d1);
+min-height:100vh;
+overflow-x:hidden;
+color:#333;
+}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:30px 20px;
+}
+
+.logo{
+width:140px;
+height:140px;
+margin:auto;
+border-radius:50%;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+font-weight:bold;
+color:#777;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+animation:zoom 3s infinite alternate;
+overflow:hidden;
+}
+
+/* AQUI PUEDES AGREGAR TU LOGO */
+.logo img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:none;
+}
+
+@keyframes zoom{
+
+0%{transform:scale(1);}
+100%{transform:scale(1.08);}
+
+}
+
+header h1{
+margin-top:20px;
+font-size:42px;
+color:#7a2e00;
+text-shadow:2px 2px 5px rgba(0,0,0,.2);
+}
+
+header p{
+margin-top:10px;
+font-size:18px;
+}
+
+/* IMAGEN ABSTRACTA */
+
+.banner{
+width:95%;
+height:220px;
+margin:20px auto;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.banner img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* CONTENEDOR */
+
+.container{
+padding:20px;
+}
+
+/* SECCIONES */
+
+.section{
+margin-bottom:40px;
+}
+
+.section-title{
+font-size:30px;
+margin-bottom:20px;
+color:#7a2e00;
+border-left:10px solid #ff9800;
+padding-left:15px;
+}
+
+/* PRODUCTOS */
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,.88);
+backdrop-filter:blur(8px);
+border-radius:20px;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.18);
+transition:.3s;
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h3{
+font-size:24px;
+margin-bottom:10px;
+color:#7a2e00;
+}
+
+.card p{
+font-size:15px;
+line-height:24px;
+margin-bottom:12px;
+}
+
+.price{
+font-size:25px;
+font-weight:bold;
+color:#ff5722;
+margin-bottom:10px;
+}
+
+.portion{
+font-size:15px;
+background:#ffe0b2;
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.select-box{
+transform:scale(1.5);
+cursor:pointer;
+}
+
+/* BOTON FLOTANTE */
+
+.order-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#ff5722;
+color:white;
+border:none;
+padding:18px 24px;
+border-radius:50px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+z-index:9999;
+}
+
+/* PANEL ORDEN */
+
+.order-panel{
+position:fixed;
+top:0;
+right:-450px;
+width:420px;
+max-width:100%;
+height:100%;
+background:white;
+box-shadow:-10px 0 30px rgba(0,0,0,.25);
+transition:.4s;
+z-index:99999;
+overflow-y:auto;
+padding:20px;
+}
+
+.order-panel.active{
+right:0;
+}
+
+.order-panel h2{
+margin-bottom:15px;
+color:#7a2e00;
+}
+
+.order-panel input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+.order-item{
+background:#fff8f1;
+padding:12px;
+border-radius:12px;
+margin-bottom:12px;
+}
+
+.qty-controls{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
+.qty-controls button{
+width:32px;
+height:32px;
+border:none;
+border-radius:50%;
+background:#ff9800;
+color:white;
+font-size:20px;
+cursor:pointer;
+}
+
+.total{
+font-size:28px;
+font-weight:bold;
+margin-top:20px;
+color:#ff5722;
+}
+
+.ticket{
+background:#fff3e0;
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+line-height:28px;
+}
+
+.send-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:#25d366;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+LOGO
+<img src="img/logo.png" alt="Logo">
+</div>
+
+<h1>🍯 La Colmena del Sabor</h1>
+
+<p>Comida casera con sabor tradicional</p>
+
+</header>
+
+<div class="banner">
+
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400">
+
+</div>
+
+<div class="container" id="menu"></div>
+
+<!-- BOTON FLOTANTE -->
+
+<button class="order-btn" onclick="toggleOrder()">
+🛒 Orden
+</button>
+
+<!-- PANEL ORDEN -->
+
+<div class="order-panel" id="orderPanel">
+
+<h2>🧾 Orden</h2>
+
+<input type="text" id="cliente" placeholder="Nombre">
+
+<input type="text" id="mesa" placeholder="Mesa">
+
+<div id="orderList"></div>
+
+<div class="total" id="total">
+Total: $0
+</div>
+
+<div class="ticket">
+
+📄 NI: <span id="folio"></span><br>
+
+📅 Fecha: <span id="fecha"></span><br>
+
+⏰ Hora: <span id="hora"></span>
+
+</div>
+
+<button class="send-btn" onclick="sendWhatsApp()">
+📲 Enviar a Cocina
+</button>
+
+</div>
+
+<script>
+
+/* WHATSAPP COCINA */
+
+const cocinaWhats = "5217712343532";
+
+/* PRODUCTOS */
+
+const menuData = {
+
+"🥣 Entradas":[
+
+{
+name:"Sopa de Verduras",
+desc:"Caldo casero con zanahoria, papa, chayote y fideos.",
+portion:"Plato Hondo",
+price:45
+},
+
+{
+name:"Arroz Rojo",
+desc:"Arroz mexicano preparado con tomate y verduras.",
+portion:"Plato Llano",
+price:40
+},
+
+{
+name:"Spaghetti Cremoso",
+desc:"Pasta con crema, queso y mantequilla.",
+portion:"Plato Llano",
+price:55
+},
+
+{
+name:"Caldo de Pollo",
+desc:"Caldo tradicional con pollo y verduras.",
+portion:"Plato Hondo",
+price:65
+}
+
+],
+
+"🍖 Plato Fuerte":[
+
+{
+name:"Res en Salsa",
+desc:"Carne de res guisada con chile y especias.",
+portion:"Plato Llano",
+price:95
+},
+
+{
+name:"Puerco en Chile Verde",
+desc:"Carne de puerco con salsa verde casera.",
+portion:"Plato Llano",
+price:90
+},
+
+{
+name:"Pollo Entomatado",
+desc:"Pollo cocinado con tomate y cebolla.",
+portion:"Plato Llano",
+price:85
+}
+
+],
+
+"🥤 Bebidas":[
+
+{
+name:"Agua del Día",
+desc:"Agua fresca natural de temporada.",
+portion:"Vaso Grande",
+price:25
+},
+
+{
+name:"Refresco",
+desc:"Coca-Cola, Sprite o Fanta.",
+portion:"355 ml",
+price:30
+},
+
+{
+name:"Café",
+desc:"Café de olla tradicional.",
+portion:"Taza",
+price:28
+}
+
+],
+
+"🍮 Postres":[
+
+{
+name:"Gelatina",
+desc:"Gelatina frutal casera.",
+portion:"Porción",
+price:25
+},
+
+{
+name:"Fruta",
+desc:"Fruta fresca de temporada.",
+portion:"Porción",
+price:30
+},
+
+{
+name:"Yogurt",
+desc:"Yogurt natural con granola.",
+portion:"Vaso",
+price:35
+}
+
+],
+
+"🌮 Extras":[
+
+{
+name:"Quesadilla",
+desc:"Tortilla con queso derretido.",
+portion:"Pieza",
+price:28
+},
+
+{
+name:"Sope",
+desc:"Sope con frijol y queso.",
+portion:"Pieza",
+price:35
+},
+
+{
+name:"Taco",
+desc:"Taco tradicional con salsa.",
+portion:"Pieza",
+price:22
+}
+
+]
+
+};
+
+const menu = document.getElementById("menu");
+
+let order = [];
+
+/* GENERAR MENU */
+
+Object.keys(menuData).forEach(section=>{
+
+let html = `
+
+<div class="section">
+
+<h2 class="section-title">${section}</h2>
+
+<div class="products">
+
+`;
+
+menuData[section].forEach(item=>{
+
+html += `
+
+<div class="card">
+
+<h3>${item.name}</h3>
+
+<p>${item.desc}</p>
+
+<div class="portion">
+🍽️ ${item.portion}
+</div>
+
+<div class="price">
+$${item.price}
+</div>
+
+<label>
+
+<input type="checkbox"
+class="select-box"
+onchange="toggleProduct('${item.name}',${item.price})">
+
+ Agregar a orden
+
+</label>
+
+</div>
+
+`;
+
+});
+
+html += `</div></div>`;
+
+menu.innerHTML += html;
+
+});
+
+/* ABRIR CERRAR PANEL */
+
+function toggleOrder(){
+
+document.getElementById("orderPanel")
+.classList.toggle("active");
+
+}
+
+/* AGREGAR PRODUCTOS */
+
+function toggleProduct(name,price){
+
+const exist = order.find(p=>p.name===name);
+
+if(exist){
+
+order = order.filter(p=>p.name!==name);
+
+}else{
+
+order.push({
+name,
+price,
+qty:1
+});
+
+}
+
+renderOrder();
+
+}
+
+/* RENDER ORDEN */
+
+function renderOrder(){
+
+const list = document.getElementById("orderList");
+
+list.innerHTML = "";
+
+let total = 0;
+
+order.forEach((item,index)=>{
+
+total += item.price * item.qty;
+
+list.innerHTML += `
+
+<div class="order-item">
+
+<b>${item.name}</b><br>
+
+💲 ${item.price}
+
+<div class="qty-controls">
+
+<button onclick="changeQty(${index},-1)">
+-
+</button>
+
+<span>${item.qty}</span>
+
+<button onclick="changeQty(${index},1)">
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total")
+.innerHTML = `Total: $${total}`;
+
+}
+
+/* CANTIDADES */
+
+function changeQty(index,value){
+
+order[index].qty += value;
+
+if(order[index].qty <=0){
+
+order.splice(index,1);
+
+}
+
+renderOrder();
+
+}
+
+/* FOLIO */
+
+const now = new Date();
+
+document.getElementById("folio").innerText =
+"LC"+Math.floor(Math.random()*99999);
+
+document.getElementById("fecha").innerText =
+now.toLocaleDateString();
+
+document.getElementById("hora").innerText =
+now.toLocaleTimeString();
+
+/* WHATSAPP */
+
+function sendWhatsApp(){
+
+let cliente =
+document.getElementById("cliente").value;
+
+let mesa =
+document.getElementById("mesa").value;
+
+let total = 0;
+
+let items = "";
+
+order.forEach(item=>{
+
+let subtotal = item.price * item.qty;
+
+total += subtotal;
+
+items +=
+`🍽️ ${item.name} x${item.qty} = $${subtotal}%0A`;
+
+});
+
+const msg =
+
+`🍯 *LA COLMENA DEL SABOR* %0A%0A` +
+
+`📄 NI: ${document.getElementById("folio").innerText}%0A` +
+
+`📅 ${document.getElementById("fecha").innerText}%0A` +
+
+`⏰ ${document.getElementById("hora").innerText}%0A%0A` +
+
+`👤 Cliente: ${cliente}%0A` +
+
+`🪑 Mesa: ${mesa}%0A%0A` +
+
+`🛒 *ORDEN* %0A${items}%0A` +
+
+`💰 TOTAL: $${total}%0A%0A` +
+
+`👨‍🍳 Enviar a cocina`;
+
+window.open(
+`https://wa.me/${cocinaWhats}?text=${msg}`,
+"_blank"
+);
+
+}
+
+</script>
+
+</body>
+</html>
