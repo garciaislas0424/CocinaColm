@@ -710,14 +710,49 @@ const msg =
 `💰 TOTAL: $${total}%0A%0A` +
 
 `👨‍🍳 Enviar a cocina`;
-
+ 
+await guardarPedidoGoogle();
+ 
 window.open(
 `https://wa.me/${cocinaWhats}?text=${msg}`,
 "_blank"
 );
 
 }
+ 
+ /* Hoja excel */
+async function guardarPedidoGoogle(){
 
+const pedido = {
+
+folio:'CM'+Date.now(),
+
+fecha:new Date().toLocaleString(),
+
+mesa:document.getElementById('mesa').value,
+
+productos:carrito.map(p=>
+p.nombre + ' x' + p.cantidad).join(', '),
+
+total:totalGeneral,
+
+estado:'PENDIENTE'
+
+};
+
+await fetch(https://script.google.com/macros/s/AKfycbyDKaWL7GKELgIVlcsRiHjpQlBJqlQIy74liGGzeO61BDOHWXcjfM5RxA2h6wfAvRYS/exec,{
+
+method:'POST',
+
+headers:{
+'Content-Type':'text/plain;charset=utf-8'
+},
+
+body:JSON.stringify(pedido)
+
+});
+
+}
 </script>
 
 </body>
