@@ -789,12 +789,16 @@ const msg =
 
 `👨‍🍳 Enviar a cocina`;
 
-await guardarPedidoGoogle();
+const url =
+`https://wa.me/${cocinaWhats}?text=${msg}`;
 
-window.open(
-`https://wa.me/${cocinaWhats}?text=${msg}`,
-"_blank"
-);
+/* ABRIR WHATSAPP PRIMERO */
+
+location.href = url;
+
+/* GUARDAR GOOGLE */
+
+guardarPedidoGoogle();
 
 /* LIMPIAR */
 
@@ -807,8 +811,6 @@ document.getElementById("cliente").value = "";
 document.getElementById("mesa").value = "";
 
 generarFolio();
-
-alert("Pedido enviado y guardado");
 
 }
 
