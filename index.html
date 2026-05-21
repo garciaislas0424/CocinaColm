@@ -46,7 +46,6 @@ animation:zoom 3s infinite alternate;
 overflow:hidden;
 }
 
-/* AQUI PUEDES AGREGAR TU LOGO */
 .logo img{
 width:100%;
 height:100%;
@@ -73,7 +72,7 @@ margin-top:10px;
 font-size:18px;
 }
 
-/* IMAGEN ABSTRACTA */
+/* BANNER */
 
 .banner{
 width:95%;
@@ -557,7 +556,7 @@ menu.innerHTML += html;
 
 });
 
-/* ABRIR CERRAR PANEL */
+/* PANEL */
 
 function toggleOrder(){
 
@@ -590,11 +589,12 @@ renderOrder();
 
 }
 
-/* RENDER ORDEN */
+/* RENDER */
 
 function renderOrder(){
 
-const list = document.getElementById("orderList");
+const list =
+document.getElementById("orderList");
 
 list.innerHTML = "";
 
@@ -643,7 +643,7 @@ function changeQty(index,value){
 
 order[index].qty += value;
 
-if(order[index].qty <=0){
+if(order[index].qty <= 0){
 
 order.splice(index,1);
 
@@ -654,6 +654,8 @@ renderOrder();
 }
 
 /* FOLIO */
+
+function generarFolio(){
 
 const now = new Date();
 
@@ -666,9 +668,85 @@ now.toLocaleDateString();
 document.getElementById("hora").innerText =
 now.toLocaleTimeString();
 
+}
+
+generarFolio();
+
+/* GOOGLE SHEETS */
+
+async function guardarPedidoGoogle(){
+
+let total = 0;
+
+order.forEach(item=>{
+
+total += item.price * item.qty;
+
+});
+
+const pedido = {
+
+folio:
+document.getElementById("folio").innerText,
+
+fecha:
+new Date().toLocaleString(),
+
+mesa:
+document.getElementById("mesa").value,
+
+cliente:
+document.getElementById("cliente").value,
+
+productos:
+order.map(item=>
+item.name + ' x' + item.qty).join(', '),
+
+total:total,
+
+estado:'PENDIENTE'
+
+};
+
+try{
+
+await fetch(
+'https://script.google.com/macros/s/AKfycbyDKaWL7GKELgIVlcsRiHjpQlBJqlQIy74liGGzeO61BDOHWXcjfM5RxA2h6wfAvRYS/exec',
+{
+
+method:'POST',
+
+headers:{
+'Content-Type':'text/plain;charset=utf-8'
+},
+
+body:JSON.stringify(pedido)
+
+});
+
+console.log("Pedido guardado");
+
+}catch(error){
+
+console.log(error);
+
+alert("Error guardando pedido");
+
+}
+
+}
+
 /* WHATSAPP */
 
-function sendWhatsApp(){
+async function sendWhatsApp(){
+
+if(order.length === 0){
+
+alert("Agrega productos");
+
+return;
+
+}
 
 let cliente =
 document.getElementById("cliente").value;
@@ -710,49 +788,30 @@ const msg =
 `💰 TOTAL: $${total}%0A%0A` +
 
 `👨‍🍳 Enviar a cocina`;
- 
+
 await guardarPedidoGoogle();
- 
+
 window.open(
 `https://wa.me/${cocinaWhats}?text=${msg}`,
 "_blank"
 );
 
-}
- 
- /* Hoja excel */
-async function guardarPedidoGoogle(){
+/* LIMPIAR */
 
-const pedido = {
+order = [];
 
-folio:'CM'+Date.now(),
+renderOrder();
 
-fecha:new Date().toLocaleString(),
+document.getElementById("cliente").value = "";
 
-mesa:document.getElementById('mesa').value,
+document.getElementById("mesa").value = "";
 
-productos:carrito.map(p=>
-p.nombre + ' x' + p.cantidad).join(', '),
+generarFolio();
 
-total:totalGeneral,
-
-estado:'PENDIENTE'
-
-};
-
-await fetch(https://script.google.com/macros/s/AKfycbyDKaWL7GKELgIVlcsRiHjpQlBJqlQIy74liGGzeO61BDOHWXcjfM5RxA2h6wfAvRYS/exec,{
-
-method:'POST',
-
-headers:{
-'Content-Type':'text/plain;charset=utf-8'
-},
-
-body:JSON.stringify(pedido)
-
-});
+alert("Pedido enviado y guardado");
 
 }
+
 </script>
 
 </body>
